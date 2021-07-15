@@ -1,11 +1,34 @@
 import { createStore } from "redux";
 
-const add = document.getElementById("add");
-const minus = document.getElementById("minus");
-const number = document.querySelector("span");
+const form = document.querySelector("form");
+const input = form.querySelector("input");
+const btn = form.querySelector("button");
+const ul = document.querySelector("ul");
 
-const counter = (count = 0, action) => {
-  return count;
+const ADD_TODO = "ADD_TODO";
+const DELETE_TODO = "DELETE TODO";
+const reducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD_TODO:
+      return [...state, { text: action.text, id: action.id }];
+    case DELETE_TODO:
+      return [];
+    default:
+      return state;
+  }
 };
 
-const countStore = createStore(counter);
+const store = createStore(reducer);
+store.subscribe(() => {
+  return console.log(store.getState());
+});
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  const toDo = input.value;
+  input.value = "";
+  store.dispatch({ type: ADD_TODO, text: toDo, id: Date.now() });
+};
+
+form.addEventListener("submit", handleSubmit);
+btn.addEventListener("click", handleSubmit);
