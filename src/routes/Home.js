@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { connect } from "react-redux";
+import ToDo from "../components/ToDo";
 import { actionCreators } from "../store";
 
 const Home = ({ toDos, addToDo }) => {
@@ -18,7 +19,11 @@ const Home = ({ toDos, addToDo }) => {
       <form onSubmit={onSubmit}>
         <input type="text" value={text} onChange={onChange}></input>
       </form>
-      <ul>{JSON.stringify(toDos)}</ul>
+      <ul>
+        {toDos.map((todo) => (
+          <ToDo {...todo} key={todo.id} />
+        ))}
+      </ul>
     </>
   );
 };
