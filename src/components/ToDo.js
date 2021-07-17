@@ -5,15 +5,15 @@ import { actionCreators } from "../store";
 const ToDo = ({ text, onBtnClick, id }) => {
   return (
     <li>
-      <Link to={`/${id}`}>
-        {text} <button onClick={onBtnClick}>X</button>
-      </Link>
+      <Link to={{ pathname: `/${id}` }}>{text}</Link>
+      <button onClick={onBtnClick}>X</button>
     </li>
   );
 };
-const mapStateToProps = (dispatch, ownProps) => {
+
+const mapDispatchProps = (dispatch, ownProps) => {
   return {
     onBtnClick: () => dispatch(actionCreators.deleteToDo(ownProps.id)),
   };
 };
-export default connect(null, mapStateToProps)(ToDo);
+export default connect(null, mapDispatchProps)(ToDo);

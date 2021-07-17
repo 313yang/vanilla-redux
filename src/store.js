@@ -2,6 +2,7 @@ import { createStore } from "redux";
 
 const ADD = "ADD";
 const DELETE = "DELETE";
+const DELETE_PAGE = "DELETE_PAGE";
 
 const addToDo = (text) => {
   return { type: ADD, text, id: Date.now() };
@@ -16,6 +17,8 @@ const reducer = (state = [], action) => {
       return [{ text: action.text, id: action.id }, ...state];
     case DELETE:
       return state.filter((todo) => todo.id !== action.id);
+    case DELETE_PAGE:
+      return [];
     default:
       return state;
   }
